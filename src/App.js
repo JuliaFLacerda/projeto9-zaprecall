@@ -38,7 +38,12 @@ const App = () => {
     }
 
     function definirmeta(e){
-        setMeta(e.target.value);
+        if(e.target.value >= 1 && e.target.value <= deck.length){
+            setMeta(e.target.value);
+        }
+        else{
+            setMeta(0);
+        }
     }
 
     return(
@@ -51,13 +56,14 @@ const App = () => {
         </LogoContainer>
         {deckEscolhido === false?
             <select>
+            <option value="" disabled selected>Escolha seu deck</option>
             <option value="deck1" onClick={definirdeck}>Deck 1</option>
             <option value="deck2" onClick={definirdeck}>Deck 2</option>
             </select>
             :
-            <input type="number" min="1" max={deck.length} onChange={definirmeta}></input>
+            <input type="number" min="1" max={deck.length} onChange={definirmeta} placeholder="Digite sua meta de zaps..."></input>
         }
-        <button onClick={iniciar}>Iniciar</button>
+        <BotaoIniciar onClick={iniciar} disabled={(meta ===0)? true : false}>Iniciar Recall!</BotaoIniciar>
         </ScreenContainer>
         :
         <ScreenContainer>
@@ -124,22 +130,32 @@ const App = () => {
 
 
 const ScreenContainer = styled.div`
-background-color: #FB6B6B;
+    background-color: #FB6B6B;
     width: 100vw;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: ${props => (!props.iniciado? "center" : "normal")};
     margin: 0px;
     padding: 0px;
     padding-bottom: 200px;
+    select, input{
+        width: 246px;
+        height: 43px;
+        background: #FFFFFF;
+        border-radius: 5px;
+        color: #ADADAD;
+        font-size: 14px;
+    }
 `
 const LogoContainer = styled.header`
 display: flex;
     align-items: center;
+    flex-direction: ${props => (!props.iniciado? "column" : "row")};
     margin: 40px 0 20px 0;
 img{
-    width: 52px;
+    width: ${props => (!props.iniciado? "136px" : "52px")}
 }
 h1 {
     font-family: 'Righteous';
@@ -173,6 +189,24 @@ const FooterConcluidos = styled.footer`
     h1{
         font-size: 15px;
         font-weight: normal;
+    }
+`
+
+const BotaoIniciar = styled.button`
+    width: 246px;
+    height: 54px;
+    background: #FFFFFF;
+    border: 1px solid #D70900;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    font-weight: 400;
+    font-size: 18px;
+    color: #D70900;
+    margin-top: 18px;
+    font-family: 'Recursive';
+    &:disabled{
+        background: #E8E8E8;
+        color: #C0C0C0;
     }
 `
 

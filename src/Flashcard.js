@@ -108,6 +108,7 @@ width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     img{
         position: absolute;
         bottom: 10px;
@@ -117,7 +118,7 @@ width: 300px;
 
 const ContainerBotoes = styled.div`
     display: flex;
-    width: 80%;
+    width: 100%;
     justify-content: space-between;
     margin: 20px;
 `
@@ -135,6 +136,6 @@ const Botao = styled.button`
         color: #FFFFFF;
         background: ${props => props.cor};
         border-radius: 5px;
-        border: 1px solid blue;
+        border: 0;
         padding:5px;
 `
