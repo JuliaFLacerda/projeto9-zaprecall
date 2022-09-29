@@ -6,13 +6,21 @@ import { useState } from 'react';
 import icone_certo from './img/icone_certo.png'
 import icone_quase from './img/icone_quase.png'
 import icone_erro from './img/icone_erro.png'
+import sad from './img/sad.png'
+import party from './img/party.png'
 
 
 const App = () => {
-    const deck1 = [{pergunta: "O que é JSX", resposta:"sim"}, 
-                   {pergunta:"O React é", resposta:"não"},
-                   {pergunta: "Componentes devem iniciar com", resposta: "talvez"}]
-    const deck2 = [{pergunta: "Pergunta1", resposta:"sim"}, 
+    const deck1 = [{pergunta: "O que é JSX", resposta:"Uma extensão de linguagem do JavaScript"}, 
+                   {pergunta:"O React é", resposta:"uma biblioteca JavaScript para construção de interfaces"},
+                   {pergunta: "Componentes devem iniciar com", resposta: "letra maiúscula"},
+                   {pergunta: "Podemos colocar __ dentro do JSX", resposta: "expressões"},
+                   {pergunta: "O ReactDOM nos ajuda __ ", resposta: "interagindo com a DOM para colocar componentes React na mesma"},
+                   {pergunta: "Usamos o npm para __", resposta: "gerenciar os pacotes necessários e suas dependências"},
+                   {pergunta: "Usamos props para __", resposta: "passar diferentes informações para componentes"},
+                   {pergunta: "Usamos estado (state) para __ ", resposta: "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente"}
+                ]
+    const deck2 = [{pergunta: "Pergunta1", resposta:"expressões"}, 
                    {pergunta:"Pergunta2", resposta:"não"},
                    {pergunta: "Pergunta3", resposta: "talvez"}]
     
@@ -87,9 +95,15 @@ const App = () => {
         {(resultados.length !== deck.length)? <></>
             :
             (zaps - meta === 0 ?
-                <h1>Você concluiu sua meta!</h1>
+                <MensagemMeta>
+                    <p>Você concluiu sua meta!</p>
+                    <img src={party} />
+                </MensagemMeta>
                 :
-                <h1>Você não concluiu sua meta...</h1>
+                <MensagemMeta>
+                <p>Você não concluiu sua meta...</p>
+                <img src={sad} />
+                </MensagemMeta>
                 
             )
         }
@@ -185,10 +199,12 @@ const FooterConcluidos = styled.footer`
     padding: 10px;
     div{
         display: flex;
+        gap: 5px;
     }
     h1{
         font-size: 15px;
         font-weight: normal;
+        margin-bottom: 6px;
     }
 `
 
@@ -207,6 +223,30 @@ const BotaoIniciar = styled.button`
     &:disabled{
         background: #E8E8E8;
         color: #C0C0C0;
+    }
+`
+const MensagemMeta = styled.div`
+width: 300px;
+    height: 35px;
+    background-color: #FFFFFF;
+    margin: 12px;
+    padding: 15px;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    p{
+        font-family: 'Recursive';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 19px;
+        color: "#333333";
+    }
+    img{
+        width: 20px;
     }
 `
 
