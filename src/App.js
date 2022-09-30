@@ -94,7 +94,7 @@ const App = () => {
         })}
         {(resultados.length !== deck.length)? <></>
             :
-            (zaps - meta === 0 ?
+            (zaps - meta >= 0 ?
                 <MensagemMeta>
                     <p>Você concluiu sua meta!</p>
                     <img src={party} />
