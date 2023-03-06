@@ -40,7 +40,7 @@ const App = () => {
         <>
         {!iniciado?
         <ScreenContainer>
-        <LogoContainer>
+        <LogoContainer iniciado={iniciado}>
             <img src={logo}></img>
             <h1>Zap Recall</h1>
         </LogoContainer>
@@ -48,7 +48,7 @@ const App = () => {
         </ScreenContainer>
         :
         <ScreenContainer>
-        <LogoContainer>
+        <LogoContainer iniciado={iniciado}>
             <img src={logo}></img>
             <h1>ZapRecall</h1>
         </LogoContainer>
@@ -87,7 +87,7 @@ const App = () => {
                 
             )
         }
-            <h1>{resultados.length}/{deck.length} concluídos</h1>
+            <h1>{resultados.length}/{deck.length} CONCLUÍDOS</h1>
             <div>
         {resultados.map(resultado =>{
             let a = <></>
@@ -180,7 +180,7 @@ const FooterConcluidos = styled.footer`
         gap: 5px;
     }
     h1{
-        font-size: 15px;
+        font-size: 18px;
         font-weight: normal;
         margin-bottom: 6px;
     }
