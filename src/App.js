@@ -65,11 +65,11 @@ const App = () => {
                 />
             )
         })}
-        <FooterConcluidos>
+        <FooterConcluidos data-test="footer">
         {(resultados.length !== deck.length)? <></>
             :
             (erros === 0 ?
-                <MensagemMeta>
+                <MensagemMeta data-test="finish-text">
                     <div>
                     <img src={party} />
                     <h1>Parabéns!</h1>
@@ -77,7 +77,7 @@ const App = () => {
                     <p>Você não esqueceu de nenhum flashcard!</p>
                 </MensagemMeta>
                 :
-                <MensagemMeta>
+                <MensagemMeta data-text="finish-text">
                     <div>
                         <img src={sad} />
                         <h1>Putz...</h1>
@@ -92,13 +92,13 @@ const App = () => {
         {resultados.map(resultado =>{
             let a = <></>
                 if(resultado === "Zap!"){
-                    a = <img src={icone_certo}></img>
+                    a = <img src={icone_certo} data-test="zap-icon"></img>
                 }
                 else if(resultado === "Quase não lembrei"){
-                    a = <img src={icone_quase}></img>
+                    a = <img src={icone_quase} data-test="partial-icon"></img>
                 }
                 else if(resultado ==="Não lembrei"){
-                    a = <img src={icone_erro}></img>
+                    a = <img src={icone_erro} data-test="no-icon"></img>
                 }
             
             return a;

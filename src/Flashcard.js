@@ -2,6 +2,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import seta_play from './img/seta_play.png'
 import seta_virar from './img/seta_virar.png'
+import icone_certo from './img/icone_certo.png'
+import icone_quase from './img/icone_quase.png'
+import icone_erro from './img/icone_erro.png'
 
 
 const Flashcard = (props) => {
@@ -31,32 +34,32 @@ const Flashcard = (props) => {
     }
 
     return(
-        <>
+        <div data-test="flashcard">
         {aberta? 
         <PerguntaAberta>
             {virada? 
             <>
-            <p>{props.resposta}</p>
+            <p data-test="flashcard-text">{props.resposta}</p>
             <ContainerBotoes>
-            <Botao cor="#FF3030" onClick={definirresultado}>Não lembrei</Botao>
-            <Botao cor="#FF922E" onClick={definirresultado}>Quase não lembrei</Botao>
-            <Botao cor="#2FBE34" onClick={definirresultado}>Zap!</Botao>
+            <Botao cor="#FF3030" data-test="no-btn" onClick={definirresultado}>Não lembrei</Botao>
+            <Botao cor="#FF922E" data-test="partial-btn" onClick={definirresultado}>Quase não lembrei</Botao>
+            <Botao cor="#2FBE34" data-test="zap-btn" onClick={definirresultado}>Zap!</Botao>
             </ContainerBotoes>
             </>
             :
             <>
-            <p>{props.pergunta}</p>
-            <img src={seta_virar} onClick={virar}></img>
+            <p data-test="flashcard-text">{props.pergunta}</p>
+            <img src={seta_virar} data-test="turn-btn" onClick={virar}></img>
             </>
             }
         </PerguntaAberta> 
         : 
         <PerguntaFechada feito={resultado}>
-            <p>{"Pergunta " + (props.num + 1)}</p>
-            <img onClick={abrir} src={seta_play}></img>
+            <p data-test="flashcard-text">{"Pergunta " + (props.num + 1)}</p>
+            <img data-test={resultado === "nada"? "play-btn":(resultado === "Zap!" ? "zap-icon" : (resultado === "Quase não lembrei" ? "partial-icon" : "no-icon") )} onClick={abrir} src={resultado === "nada"?seta_play:(resultado === "Zap!" ? icone_certo : (resultado === "Quase não lembrei" ? icone_quase : icone_erro) )}></img>
         </PerguntaFechada>
         }
-        </>
+        </div>
     )
 }
 
