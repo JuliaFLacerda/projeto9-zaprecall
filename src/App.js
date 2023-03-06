@@ -27,32 +27,14 @@ const App = () => {
     const [resultados, setResultados] = useState([]);
     const [iniciado, setIniciado] = useState(false);
     const [deck, setDeck] = useState(deck1);
-    const [meta, setMeta] = useState(0);
-    const [zaps, setZaps] = useState(0);
-    const [deckEscolhido, setDeckEscolhido] = useState(false);
+    const [erros, setErros] = useState(0);
  
     function iniciar(){
         setIniciado(true);
     }
     
-    function definirdeck(e){
-        if(e.target.value === "deck1"){
-            setDeck(deck1);
-        }
-        else{
-            setDeck(deck2);
-        }
-        setDeckEscolhido(true);
-    }
 
-    function definirmeta(e){
-        if(e.target.value >= 1 && e.target.value <= deck.length){
-            setMeta(e.target.value);
-        }
-        else{
-            setMeta(0);
-        }
-    }
+    
 
     return(
         <>
@@ -62,16 +44,7 @@ const App = () => {
             <img src={logo}></img>
             <h1>Zap Recall</h1>
         </LogoContainer>
-        {deckEscolhido === false?
-            <select>
-            <option value="" disabled selected>Escolha seu deck</option>
-            <option value="deck1" onClick={definirdeck}>Deck 1</option>
-            <option value="deck2" onClick={definirdeck}>Deck 2</option>
-            </select>
-            :
-            <input type="number" min="1" max={deck.length} onChange={definirmeta} placeholder="Digite sua meta de zaps..."></input>
-        }
-        <BotaoIniciar onClick={iniciar} disabled={(meta ===0)? true : false}>Iniciar Recall!</BotaoIniciar>
+        <BotaoIniciar onClick={iniciar}>Iniciar Recall!</BotaoIniciar>
         </ScreenContainer>
         :
         <ScreenContainer>
@@ -87,32 +60,37 @@ const App = () => {
                 num={index}
                 setResultados={setResultados}
                 resultados={resultados}
-                zaps = {zaps}
-                setZaps = {setZaps}
+                erros = {erros}
+                setErros = {setErros}
                 />
             )
         })}
+        <FooterConcluidos>
         {(resultados.length !== deck.length)? <></>
             :
-            (zaps - meta >= 0 ?
+            (erros === 0 ?
                 <MensagemMeta>
-                    <p>Você concluiu sua meta!</p>
+                    <div>
                     <img src={party} />
+                    <h1>Parabéns!</h1>
+                    </div>
+                    <p>Você não esqueceu de nenhum flashcard!</p>
                 </MensagemMeta>
                 :
                 <MensagemMeta>
-                <p>Você não concluiu sua meta...</p>
-                <img src={sad} />
+                    <div>
+                        <img src={sad} />
+                        <h1>Putz...</h1>
+                    </div>
+                    <p>Ainda faltam alguns... Mas não desanime!</p>
                 </MensagemMeta>
                 
             )
         }
-        <FooterConcluidos>
             <h1>{resultados.length}/{deck.length} concluídos</h1>
             <div>
         {resultados.map(resultado =>{
             let a = <></>
-            if(resultados.length === deck.length){
                 if(resultado === "Zap!"){
                     a = <img src={icone_certo}></img>
                 }
@@ -122,7 +100,7 @@ const App = () => {
                 else if(resultado ==="Não lembrei"){
                     a = <img src={icone_erro}></img>
                 }
-            }
+            
             return a;
         })}
         </div>
@@ -227,16 +205,13 @@ const BotaoIniciar = styled.button`
 `
 const MensagemMeta = styled.div`
 width: 300px;
-    height: 35px;
     background-color: #FFFFFF;
-    margin: 12px;
-    padding: 15px;
-    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
-    border-radius: 5px;
+    margin-bottom:14px;
+    margin-top: 16px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    gap: 5px;
+    text-align: center;
     p{
         font-family: 'Recursive';
         font-style: normal;
@@ -246,7 +221,21 @@ width: 300px;
         color: "#333333";
     }
     img{
-        width: 20px;
+        width: 23px;
+        height: 23px;
+    }
+    div{
+        display: flex;
+        gap: 5px;
+        
+    }
+    h1{
+        font-family: 'Recursive';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 22px;
+        color: #333333;
     }
 `
 

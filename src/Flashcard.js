@@ -23,8 +23,8 @@ const Flashcard = (props) => {
     function definirresultado(e){
         setResultado(e.target.textContent);
         props.setResultados([...props.resultados, e.target.textContent])
-        if(e.target.textContent === "Zap!"){
-            props.setZaps(props.zaps + 1)
+        if(e.target.textContent === "Não lembrei"){
+            props.setErros(props.erros + 1)
         }
         console.log(e.target.textContent);
         setAberta(false);
